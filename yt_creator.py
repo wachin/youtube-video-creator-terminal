@@ -11,7 +11,7 @@ from typing import List, Tuple, Optional
 # -----------------------------
 # Configuration and constants
 # -----------------------------
-AUDIO_BR_STEPS = [64, 96, 128, 160, 192, 256, 320, 384]  # common kbps values
+AUDIO_BR_STEPS = [64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384]  # common kbps values
 # Audio formats/codecs accepted by YouTube (practical subset for uploads):
 # Recommended: AAC-LC, 48 kHz. MP3 is also accepted; Opus is valid in WebM.
 AUDIO_CODECS = [
@@ -489,7 +489,8 @@ def main(stdscr):
     # 7) Confirmation and final output path
     # Determine container from the selected codec
     container = "webm" if acodec == "libopus" else "mp4"
-    suggested_out = os.path.join(os.path.dirname(aud_path), f"output_{int(time.time())}.{container}")
+    audio_name = os.path.splitext(os.path.basename(aud_path))[0]
+    suggested_out = os.path.join(os.path.dirname(aud_path), f"{audio_name}.{container}")
     summary = [
         "Summary:",
         f"Image: {img_path}",

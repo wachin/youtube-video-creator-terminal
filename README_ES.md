@@ -1,4 +1,4 @@
-# YouTube Video Creator (Terminal)
+# YouTube Video Creator (de Terminal)
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![FFmpeg](https://img.shields.io/badge/FFmpeg-required-brightgreen)

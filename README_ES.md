@@ -1,4 +1,4 @@
-# YouTube Video Creator (de Terminal)
+# YouTube Video Creator (Para Terminal / para Termux en Android)
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![FFmpeg](https://img.shields.io/badge/FFmpeg-required-brightgreen)
@@ -14,15 +14,14 @@ Este proyecto ofrece una interfaz basada en `curses` que te permite elegir una i
 - Convierte una imagen estática y un archivo de audio en un video.
 - Permite navegar archivos desde la terminal con un selector interactivo.
 - Detecta el bitrate del audio de origen con `ffprobe`.
-- Permite elegir el bitrate de audio, el códec y la resolución objetivo del video.
+- Permite elegir el bitrate de audio, el códec, la orientación (horizontal o vertical) y la resolución objetivo del video.
 - Genera salida en `MP4` para AAC/MP3 o en `WebM` para Opus.
 - Muestra el progreso de codificación, la velocidad y el tiempo restante estimado.
 
-## Requisitos
+## Requisitos generales
 
 - Python 3
 - `ffmpeg`
-- `ffprobe`
 - Un entorno de terminal con soporte para `curses` en Python
 
 ## Formatos de Entrada Soportados
@@ -35,6 +34,10 @@ Este proyecto ofrece una interfaz basada en `curses` que te permite elegir una i
 
 `mp3`, `wav`, `m4a`, `aac`, `flac`, `ogg`, `opus`, `wma`
 
+### Bitrates de Audio Disponibles
+
+`64`, `80`, `96`, `112`, `128`, `160`, `192`, `224`, `256`, `320`, `384` kbps
+
 ## Cómo Funciona
 
 1. Selecciona una imagen estática.
@@ -42,8 +45,9 @@ Este proyecto ofrece una interfaz basada en `curses` que te permite elegir una i
 3. Revisa las recomendaciones orientadas a YouTube para el audio.
 4. Elige el bitrate de audio.
 5. Elige el códec de audio.
-6. Elige la resolución del video.
-7. Confirma el resumen e inicia la codificación.
+6. Elige la orientación del video: **Horizontal** (YouTube, etc.) o **Vertical** (TikTok, Reels, Shorts), que intercambia ancho y alto (ej. `1080x1920`).
+7. Elige la resolución del video.
+8. Confirma el resumen e inicia la codificación.
 
 Después, el script construye un comando de `ffmpeg` que repite la imagen, ajusta la duración de salida a la del audio y exporta un archivo de video listo para subir.
 
@@ -69,8 +73,8 @@ python3 yt_creator_ES.py
 - Formato del nombre de archivo de salida:
 
 ```text
-output_<timestamp>.mp4
-output_<timestamp>.webm
+nombre_del_audio.mp4
+nombre_del_audio.webm
 ```
 
 El archivo generado se guarda en el mismo directorio que el audio seleccionado.
@@ -85,3 +89,7 @@ El archivo generado se guarda en el mismo directorio que el audio seleccionado.
 ## Archivo del Proyecto
 
 - `yt_creator_ES.py`: aplicacion principal de terminal
+
+## Licencia
+
+GPL 3

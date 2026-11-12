@@ -1,4 +1,4 @@
-# YouTube Video Creator (Terminal)
+# YouTube Video Creator (For Terminal, for Termux in Android)
 
 ---
 
@@ -21,16 +21,21 @@ This project provides a `curses`-based interface that lets you pick an image, ch
 - Turn one still image plus one audio file into a video.
 - Browse files from the terminal with an interactive picker.
 - Detect the source audio bitrate with `ffprobe`.
-- Choose the audio bitrate, codec, and target video resolution.
+- Choose the audio bitrate, codec, orientation (horizontal or vertical), and target video resolution.
 - Generate `MP4` output for AAC/MP3 or `WebM` output for Opus.
 - Show encoding progress, speed, and estimated remaining time.
 
-## Requirements
+## General Requirements
 
 - Python 3
 - `ffmpeg`
-- `ffprobe`
 - A terminal environment with Python `curses` support
+
+### For Termux in Android
+
+I made a tutorial for 
+
+
 
 ## Supported Input Formats
 
@@ -42,6 +47,10 @@ This project provides a `curses`-based interface that lets you pick an image, ch
 
 `mp3`, `wav`, `m4a`, `aac`, `flac`, `ogg`, `opus`, `wma`
 
+### Available Audio Bitrates
+
+`64`, `80`, `96`, `112`, `128`, `160`, `192`, `224`, `256`, `320`, `384` kbps
+
 ## How It Works
 
 1. Select a still image.
@@ -49,8 +58,9 @@ This project provides a `curses`-based interface that lets you pick an image, ch
 3. Review YouTube-oriented audio recommendations.
 4. Pick an audio bitrate.
 5. Pick an audio codec.
-6. Pick a video resolution.
-7. Confirm the summary and start encoding.
+6. Pick the video orientation: **Horizontal** (YouTube, etc.) or **Vertical** (TikTok, Reels, Shorts), which swaps width and height (e.g. `1080x1920`).
+7. Pick a video resolution.
+8. Confirm the summary and start encoding.
 
 The script then builds an `ffmpeg` command that loops the image, matches the output length to the audio, and exports a ready-to-upload video file.
 
@@ -76,8 +86,8 @@ python3 yt_creator.py
 - Output file name format:
 
 ```text
-output_<timestamp>.mp4
-output_<timestamp>.webm
+audio_file_name.mp4
+audio_file_name.webm
 ```
 
 The generated file is saved in the same directory as the selected audio file.
@@ -92,3 +102,7 @@ The generated file is saved in the same directory as the selected audio file.
 ## Project File
 
 - `yt_creator.py`: main terminal application
+
+## Licence
+
+GPL 3

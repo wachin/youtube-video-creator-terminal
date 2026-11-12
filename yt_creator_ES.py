@@ -428,16 +428,34 @@ def main(stdscr):
     if ac_idx < 0: return
     acodec = AUDIO_CODECS[ac_idx][0]
 
-    # 6) Elegir resolución de video
-    vr_opts = [f"{r[1]} ({r[0]})" for r in VIDEO_RESOLUTIONS]
+    # 6) Elegir orientación (horizontal o vertical para TikTok/Reels/Shorts)
+    orient_opts = [
+        "Horizontal (YouTube, etc.)",
+        "Vertical (TikTok, Reels, Shorts)",
+    ]
+    orient_menu = SimpleMenu(stdscr, "Elige la orientación del video", orient_opts, preselect=0)
+    orient_idx = orient_menu.run()
+    if orient_idx < 0: return
+    vertical = (orient_idx == 1)
+
+    # 7) Elegir resolución de video
+    if vertical:
+        # Intercambiar ancho y alto para formato vertical (ej. 1080x1920)
+        vr_opts = [f"{r[1]} ({r[0].split('x')[1]}x{r[0].split('x')[0]})" for r in VIDEO_RESOLUTIONS]
+    else:
+        vr_opts = [f"{r[1]} ({r[0]})" for r in VIDEO_RESOLUTIONS]
     # sugerir 1080p por defecto
     def_idx = 4  # 1080p
     vr_menu = SimpleMenu(stdscr, "Elige la resolución del video", vr_opts, preselect=def_idx)
     vr_idx = vr_menu.run()
     if vr_idx < 0: return
-    resolution = VIDEO_RESOLUTIONS[vr_idx][0]
+    if vertical:
+        w, h = VIDEO_RESOLUTIONS[vr_idx][0].split("x")
+        resolution = f"{h}x{w}"
+    else:
+        resolution = VIDEO_RESOLUTIONS[vr_idx][0]
 
-    # 7) Confirmación y salida final
+    # 8) Confirmación y salida final
     # Determinar contenedor por codec seleccionado
     container = "webm" if acodec == "libopus" else "mp4"
     audio_name = os.path.splitext(os.path.basename(aud_path))[0]
